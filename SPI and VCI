@@ -1,0 +1,26 @@
+import pandas as pd
+import scipy.stats
+import os
+import numpy as np
+output = pd.DataFrame('', columns =['OBJECTID', 'CC_SPI1', 'p1', 'CC_SPI3', 'p2', 'CC_SPI6', 'p3', 'CC_SPI12', 'p4'], index = np.arange(1,67))
+# read precipitation data 
+i = 1
+for excelfile in os.listdir(r'C:\Users\bikra\Desktop\Ans'):
+    if excelfile[-4: ] == '.csv':
+        print(excelfile)
+        df = pd.read_csv(r'C:\Users\bikra\Desktop\Ans' + '\\' + excelfile)
+        c1, p1 = scipy.stats.pearsonr(df.SPI1, df.VCI)
+        c2, p2 = scipy.stats.pearsonr(df.SPI3, df.VCI)
+        c3, p3 = scipy.stats.pearsonr(df.SPI6, df.VCI)
+        c4, p4 = scipy.stats.pearsonr(df.SPI12, df.VCI)
+        output.loc[i]['OBJECTID'] = excelfile[:-7] 
+        output.loc[i]['CC_SPI1'] = c1
+        output.loc[i]['CC_SPI3'] = c2
+        output.loc[i]['CC_SPI6'] = c3
+        output.loc[i]['CC_SPI12'] = c4
+        output.loc[i]['p1'] = p1
+        output.loc[i]['p2'] = p2
+        output.loc[i]['p3'] = p3
+        output.loc[i]['p4'] = p4
+        i = i+1
+output.to_csv(r'C:\Users\bikra\Desktop\Ans\correlations.csv')
