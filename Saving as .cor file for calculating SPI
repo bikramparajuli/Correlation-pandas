@@ -1,0 +1,12 @@
+import pandas as pd
+import os
+import numpy as np
+path = r'C:\Users\bikra\Desktop\SPI\Integer'
+for files in os.listdir(path):
+    if files[-4:] == '.csv': 
+        print(files) 
+        dataset = pd.read_csv(r'C:\Users\bikra\Desktop\SPI\Integer'+'\\'+files)
+        #dataset['Rainfall(mm)']=dataset['Rainfall(mm)'].astype(int)
+        dataset = dataset.rename(columns = {'Year': 'YEAR', 'Month':'MONTH'}, inplace = False)
+        dataset.to_csv(r'C:\Users\bikra\Desktop\SPI\Integer\cor\\'+files[:-4]+'.cor', sep ='\t', index=False )
+        
