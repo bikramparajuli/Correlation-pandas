@@ -1,0 +1,24 @@
+import pandas as pd
+import os
+import numpy as np
+for l in range(2, 67, 1):
+    data = pd.DataFrame('', columns =['YEAR', 'MONTH', 'SPI1', 'SPI3', 'SPI6', 'SPI12'], index = np.arange(1,243))
+    dataset = pd.read_csv(r'C:\Users\bikra\Desktop\Correlation\SPI\\' + str(l) + 'spi.csv') 
+    i = 1
+    for j in range(205,447,1):
+        spi1 = dataset.loc[j,'SPI1']
+        spi3 = dataset.loc[j,'SPI3'] 
+        spi6 = dataset.loc[j,'SPI6'] 
+        spi12 = dataset.loc[j,'SPI12']
+        Year = dataset.loc[j,'YEAR']
+        Month = dataset.loc[j,'MONTH']  
+        data.loc[i]['YEAR'] = Year
+        data.loc[i]['MONTH'] = Month     
+        data.loc[i]['SPI1'] = spi1
+        data.loc[i]['SPI3'] = spi3
+        data.loc[i]['SPI6'] = spi6
+        data.loc[i]['SPI12'] = spi12
+        i = i + 1
+    data.to_csv(r'C:\Users\bikra\Desktop\Correlation\SPI\clipping csv files\\'+ str(l) +'spi.csv', index = False)
+
+
